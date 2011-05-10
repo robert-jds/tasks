@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tasks</title>
-  <%= stylesheet_link_tag :all %>
+  <title><%= @title %></title>
+  <%= render 'layouts/stylesheets' %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div class="container">
+    <%= render 'layouts/header' %>
+    <section class="content">
+      <%= yield %>
+    </section>
+    <%= render 'layouts/footer' %>
+  </div>
 </body>
 </html>
