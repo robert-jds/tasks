@@ -1,5 +1,5 @@
 Tasks::Application.routes.draw do
-  get "users/new"
+  resources :users
 
   match '/about', :to => 'pages#about'
   match '/signup', :to => 'users#new'
