@@ -1,1 +1,8 @@
+<section id="main">
 <h1><%= "#{@user.first_name} #{@user.last_name} - #{@user.email}" %></h1>
+</section>
+<aside class="sidebar">
+  <span>Name:</span> <%= name(@user) %>
+  <span>URL</span> <%= link_to user_path(@usre) %>
+</aside>
+
