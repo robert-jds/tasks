@@ -17,3 +17,21 @@ body {
 footer {
   font-size: 85%;
 }
+
+label {
+  display: block;
+  margin: 0px 0px 8px 0px;
+}
+
+input {
+  margin: 0px 0px 8px 0px;
+}
+
+.field_with_errors label {
+  color: #F33;
+}
+
+.field_with_errors input {
+  border: 1px solid #F33;
+}
+
