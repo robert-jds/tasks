@@ -1,6 +1,6 @@
-<h1>Sign Up</h1>
-<%= render 'shared/error_messages', :object => f.object  %>
-<%= form_for(@user) do |f| %>
+<h1>Edit Profile</h1>
+<% form_for(@user) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
   <div class="field">
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
@@ -22,6 +22,6 @@
     <%= f.password_field :password_confirmation %>
   </div>
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Edit Profile" %>
   </div>
 <% end %>
