@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :authenticate, :only => [:edit, :update, :index, :destroy]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user, :only => [:destroy]
+  before_filter :already_signed_in, :only => [:new, :create]
 
   def create
     @user = User.new(params[:user])
@@ -69,5 +70,9 @@ class UsersController < ApplicationController
         flash[:info] = "Not enough priveleges to do delete users."
         redirect_to root_path
       end
+    end
+
+    def already_signed_in
+      redirect_to root_path if signed_in?
     end
 end
