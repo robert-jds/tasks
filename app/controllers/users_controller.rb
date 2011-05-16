@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:success] = "Profile created!"
+      sign_in @user
+      flash[:success] = "You're in the Tasks!"
       redirect_to user_path(@user)
     else
       @title = "Sign up"
