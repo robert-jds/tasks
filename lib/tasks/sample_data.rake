@@ -10,7 +10,7 @@ namespace :db do
                          :password => "foobar",
                          :password_confirmation => "foobar")
     admin.toggle!(:admin)
-    99.times do |n|
+    15.times do |n|
       first_name = Faker::Name.name.split[0]
       last_name = Faker::Name.name.split[1]
       email = "example-#{n + 1}@mail.com"
@@ -20,6 +20,12 @@ namespace :db do
                    :email => email,
                    :password => password,
                    :password_confirmation => password)
+    end
+
+    User.all(:limit => 10).each do |user|
+      3.times do
+        user.created_tasks.create!(:description => Faker::Lorem.sentence(1))
+      end
     end
   end
 end

@@ -1,8 +1,18 @@
 <section id="main">
 <h1><%= "#{@user.first_name} #{@user.last_name} - #{@user.email}" %></h1>
+<h2>Tasks</h2>
+<% if @assigned_tasks.empty? %>
+<p>Sorry, no tasks yet!</p>
+<% end %>
+<ul>
+  <% @assigned_tasks.each do |task| %>
+  <li><%= task.description %></li>
+  <% end %>
+</ul>
 </section>
 <aside class="sidebar">
   <span>Name:</span> <%= name(@user) %>
-  <span>URL</span> <%= link_to user_path(@usre) %>
+  <span>URL:</span> <%= link_to user_path(@user) %>
+  <span>Tasks:</span> <%= @assigned_tasks.count %>
 </aside>
 

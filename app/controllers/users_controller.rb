@@ -23,7 +23,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @title = "#{@user.first_name} #{@user.last_name}"
+    @title = "#{@user.first_name} #{@user.last_name}'s Profile"
+    @assigned_tasks = @user.assigned_tasks
+    @created_tasks = @user.created_tasks
   end
 
   def edit 

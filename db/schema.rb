@@ -10,7 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110516063407) do
+ActiveRecord::Schema.define(:version => 20110517043331) do
+
+  create_table "tasks", :force => true do |t|
+    t.string   "description"
+    t.boolean  "completed"
+    t.integer  "position"
+    t.integer  "created_by_id"
+    t.integer  "assigned_to_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["assigned_to_id"], :name => "index_tasks_on_assigned_to_id"
+  add_index "tasks", ["created_by_id"], :name => "index_tasks_on_created_by_id"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

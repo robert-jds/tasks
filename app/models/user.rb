@@ -1,20 +1,26 @@
 # == Schema Information
-# Schema version: 20110514191923
+# Schema version: 20110517043331
 #
 # Table name: users
 #
-#  id         :integer         not null, primary key
-#  first_name :string(255)
-#  last_name  :string(255)
-#  email      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id                 :integer         not null, primary key
+#  first_name         :string(255)
+#  last_name          :string(255)
+#  email              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean
 #
 
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :first_name, :last_name, :email, :password,
                   :password_confirmation
+
+  has_many :created_tasks, :class_name => "Task", :foreign_key => "created_by_id"
+  has_many :assigned_tasks, :class_name => "Task", :foreign_key => "assigned_to_id"
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
