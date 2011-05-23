@@ -4,25 +4,19 @@
   <h3><%= name(user) %></h3>
   <ul>
   <% user.assigned_tasks.each do |task| %>
-    <li>
+    <li id="<%= task.position %>" class="ui-state-default">
       <%= task.description %>
       <%= link_to "delete", task, :method => :delete,
                                   :confirm => "Really?",
-                                  :title => "Delete task" %>,
+                                  :title => "Delete task" %> |
       <%= link_to "edit", edit_task_path(task) %>
     </li>
   <% end %>
      <li>
        <%= form_for @task do |f| %>
          <%= render 'shared/error_messages', :object => f.object  %>
-         <div><%= f.hidden_field :assigned_to_id, :value => user.id %></div> 
-         <div class="field">
-           <%= f.label :description %>
-           <%= f.text_field :description %>
-         </div>
-         <div class="actions">
-           <%= f.submit "New task" %>
-         </div>
+         <%= f.hidden_field :assigned_to_id, :value => user.id %>
+         <%= f.text_field :description %> <%= f.submit "Add task" %>
        <% end %>
        <form>
         
