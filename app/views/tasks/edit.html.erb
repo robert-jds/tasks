@@ -1,0 +1,11 @@
+<h1>Edit Task</h1>
+<%= form_for(@task) do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class="field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update task" %>
+  </div>
+<% end %>

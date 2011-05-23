@@ -24,7 +24,9 @@ namespace :db do
 
     User.all(:limit => 10).each do |user|
       3.times do
-        user.created_tasks.create!(:description => Faker::Lorem.sentence(1))
+        assigned_to = rand(User.all.count)
+        user.created_tasks.create!(:description => Faker::Lorem.sentence(5),
+                                   :assigned_to_id => assigned_to)
       end
     end
   end

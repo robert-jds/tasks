@@ -2,6 +2,7 @@ Tasks::Application.routes.draw do
 
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :tasks, :only => [:create, :destroy, :edit, :update]
 
   match '/about', :to => 'pages#about'
   match '/signup', :to => 'users#new'
