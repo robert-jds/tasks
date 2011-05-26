@@ -3,6 +3,9 @@ Tasks::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :tasks, :only => [:create, :destroy, :edit, :update]
+  resources :users do
+    match :reorder_tasks, :via => [:post], :on => :collection
+  end
 
   match '/about', :to => 'pages#about'
   match '/signup', :to => 'users#new'

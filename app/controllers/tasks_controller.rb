@@ -4,6 +4,13 @@ class TasksController < ApplicationController
   def create
     @task = current_user.created_tasks.new(params[:task])
     if @task.save
+      position = Task.where(:assigned_to_id => @task.assigned_to_id).maximum('position')
+      if !position || position == ''
+        @task.position = 1
+      else
+        @task.position = position + 1
+      end
+      @task.save
       flash[:success] = "Task created."
       redirect_to root_path
     else

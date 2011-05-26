@@ -54,6 +54,30 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def reorder_tasks
+    flash[:success] = "serialize: #{params[:task]}"
+    p "serialize: #{params[:task]}"
+    p "serialize: #{params}"
+ 
+    original_order = Array.new()
+ 
+    user = User.find(params[:user].to_i)
+    user.assigned_tasks.each do |task|
+      p "task# #{task.id}: position #{task.position}"
+    end
+
+    p 'POST vars'
+    i = 1
+    params[:task].each do |task| 
+      p "task# #{task}: position #{i}"
+      i += 1
+      t = Task.find(task)
+      t.position = i
+      t.save
+    end
+    render :nothing => true
+  end
+
   private
     def correct_user
       @user = User.find(params[:id])

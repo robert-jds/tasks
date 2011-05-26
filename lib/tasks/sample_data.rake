@@ -24,9 +24,18 @@ namespace :db do
 
     User.all(:limit => 10).each do |user|
       3.times do
-        assigned_to = rand(User.all.count)
-        user.created_tasks.create!(:description => Faker::Lorem.sentence(5),
-                                   :assigned_to_id => assigned_to)
+        assigned_to = rand(User.all.count) + 1
+        t = user.created_tasks.create!(:description => Faker::Lorem.sentence(5),
+                                       :assigned_to_id => assigned_to)
+        position = Task.where(:assigned_to_id => assigned_to).maximum('position')
+        p "#{User.find(assigned_to).first_name} - task position: '#{position}'"
+        if !position || position == ''
+          t.position = 1
+        else
+          t.position = position + 1
+        end
+        p "#{User.find(assigned_to).first_name}: task position set to: #{t.position}"
+        t.save
       end
     end
   end

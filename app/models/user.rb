@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
                   :password_confirmation
 
   has_many :created_tasks, :class_name => "Task", :foreign_key => "created_by_id"
-  has_many :assigned_tasks, :class_name => "Task", :foreign_key => "assigned_to_id"
+  has_many :assigned_tasks, :class_name => "Task", :foreign_key => "assigned_to_id", :order => "position ASC"
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

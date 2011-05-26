@@ -2,9 +2,10 @@
   <h2>Current Tasks</h2>
   <% @users.each do |user| %>
   <h3><%= name(user) %></h3>
-  <ul>
+  <ul id="<%= user.id %>">
   <% user.assigned_tasks.each do |task| %>
-    <li id="<%= task.position %>" class="ui-state-default">
+    <li id="task_<%= task.id %>">
+      <span class="handle">::</span>
       <%= task.description %>
       <%= link_to "delete", task, :method => :delete,
                                   :confirm => "Really?",
@@ -27,4 +28,29 @@
 <% else %>
   <p>Jaguar Tasks Home Page.</p>
   <%= link_to "Sign up now!", signup_path, :class => "std-btn" %>
+<% end %>
+
+<% content_for :javascript do %>
+<%= javascript_tag do %>
+  $(function() {
+    $("ul").sortable({
+      handle: '.handle',
+      items: 'li',
+      cursor: 'pointer',
+      opacity: 0.4,
+      update: function(event, ui) {
+        $.ajax({
+          type: 'POST',
+          data: $(event.target).sortable('serialize') + "&user=" +
+                $(event.target).attr('id'),
+          dataType: 'script',
+          success: function(request) {
+            // Highlight dropped task?
+          },
+          url: '/users/reorder_tasks'
+        })
+      }
+    });
+  });
+<% end %>
 <% end %>
