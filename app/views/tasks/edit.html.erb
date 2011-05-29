@@ -1,11 +1,27 @@
-<h1>Edit Task</h1>
-<%= form_for(@task) do |f| %>
-  <%= render 'shared/error_messages', :object => f.object %>
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+<section class="bump-1">
+  <h2>Edit <%= "#{User.find(@task.created_by_id).first_name}'s" %> Task</h2>
+  <div class="task-meta">
+    Assigned by <span class="task-meta-assigned-by"><%= User.find(@task.created_by_id).first_name %></span> on <span class="task-meta-assigned-on"><%= @task.created_at.strftime("%B %e, %Y at %I:%M %p") %></span>
   </div>
-  <div class="actions">
-    <%= f.submit "Update task" %>
-  </div>
-<% end %>
+  <%= form_for @task, :html => { :class => "task-form" }  do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+    <div class="field">
+      <%= f.label :assigned_to, "Actually, give this to: ", :class => "select-label" %>
+      <%= select(:task, :assigned_to_id, options_for_select(@users)) %>
+    </div>
+
+    <div class="field">
+      <% if @task.description.length > 60 %>
+        <%= f.text_area :description, { :rows => 4, :class => "text-input" }  %>
+      <% else %>
+        <%= f.text_field :description, { :class => "text-input" }  %>
+      <% end %>
+    </div>
+    <div class="edit-task">
+      <%= f.submit "Edit", :class => "std-button" %>
+    </div>
+  <% end %>
+</section>
+
+
+<% content_for :body_class do %> id="edit-task"<% end %>

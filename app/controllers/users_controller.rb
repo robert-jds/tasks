@@ -55,7 +55,6 @@ class UsersController < ApplicationController
   end
 
   def reorder_tasks
-    flash[:success] = "serialize: #{params[:task]}"
     p "serialize: #{params[:task]}"
     p "serialize: #{params}"
  

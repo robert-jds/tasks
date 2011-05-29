@@ -1,0 +1,11 @@
+<section class="bump-1">
+  <h1>Assign Something to <%= name(@assigned_to) %></h1>
+  <%= form_for @task, :html => { :class => "task-form" } do |f| %>
+    <%= render 'shared/error_messages', :object => f.object %>
+    <%= f.hidden_field :assigned_to_id, :value => @assigned_to.id %>
+    <%= f.text_field :description, { :class => "text-input" }  %>
+    <div class="add-task">
+      <%= f.submit "Add Task", :class => "std-button"  %> 
+    </div>
+  <% end %>
+</section>

@@ -1,29 +1,28 @@
 <% if signed_in? %>
-  <h2>Current Tasks</h2>
+  <h2>Stuff We're Doing Now</h2>
   <% @users.each do |user| %>
-  <h3><%= name(user) %></h3>
-  <ul id="<%= user.id %>">
-  <% user.assigned_tasks.each do |task| %>
-    <li id="task_<%= task.id %>">
-      <span class="handle">::</span>
-      <%= task.description %>
-      <%= link_to "delete", task, :method => :delete,
-                                  :confirm => "Really?",
-                                  :title => "Delete task" %> |
-      <%= link_to "edit", edit_task_path(task) %>
-    </li>
-  <% end %>
-     <li>
-       <%= form_for @task do |f| %>
-         <%= render 'shared/error_messages', :object => f.object  %>
-         <%= f.hidden_field :assigned_to_id, :value => user.id %>
-         <%= f.text_field :description %> <%= f.submit "Add task" %>
-       <% end %>
-       <form>
-        
-       </form>
-     </li>
-  </ul>
+  <section class="user-tasks <%= cycle("first", "last") %>">
+    <h3><%= name(user) %></h3>
+    <ul id="<%= user.id %>" class="task-list">
+    <% if user.assigned_tasks.empty? %>
+      <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
+    <% end %>
+    <% user.assigned_tasks.each do |task| %>
+      <li id="task_<%= task.id %>" class="task">
+        <span class="handle">::</span>
+        <span class="task-description"><%= task.description %></span>
+        <span class="task-functions"><%= link_to "x", task, :method => :delete,
+                                    :confirm => "Really?",
+                                    :title => "Delete task" %> |
+        <%= link_to "e", edit_task_path(task) %></span>
+      </li>
+    <% end %>
+    </ul>
+
+    <div class="add-task std-button">
+      <%= link_to '+ Add Task', new_task_path(:assigned_to => user.id) %>
+    </div>
+    </section>
   <% end %>
 <% else %>
   <p>Jaguar Tasks Home Page.</p>
@@ -33,10 +32,10 @@
 <% content_for :javascript do %>
 <%= javascript_tag do %>
   $(function() {
-    $("ul").sortable({
+    $(".task-list").sortable({
       handle: '.handle',
       items: 'li',
-      cursor: 'pointer',
+      cursor: 'move',
       opacity: 0.4,
       update: function(event, ui) {
         $.ajax({

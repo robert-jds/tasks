@@ -28,6 +28,10 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
     @title = "Edit Task"
+    @users = []
+    User.all.each do |u|
+      @users << ["#{u.first_name} #{u.last_name}", u.id]
+    end
   end
 
   def update
@@ -37,6 +41,16 @@ class TasksController < ApplicationController
       redirect_to root_path
     else 
       flash[:error] = "Error Updating Task."
+      redirect_to root_path
+    end
+  end
+
+  def new
+    @task = current_user.created_tasks.new(params[:task])
+    begin
+      @assigned_to = User.find(params[:assigned_to])
+    rescue
+      flash[:error] = "There's no user buddy."
       redirect_to root_path
     end
   end

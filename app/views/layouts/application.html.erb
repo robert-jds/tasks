@@ -8,7 +8,7 @@
   <%= csrf_meta_tag %>
   <%= yield :javascript %>
 </head>
-<body>
+<body<%= yield :body_class %>>
   <div class="container">
     <%= render 'layouts/header' %>
     <section class="content">
