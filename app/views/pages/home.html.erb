@@ -1,33 +1,35 @@
-<% if signed_in? %>
-  <h2>Stuff We're Doing Now</h2>
-  <% @users.each do |user| %>
-  <section class="user-tasks <%= cycle("first", "last") %>">
-    <h3><%= name(user) %></h3>
-    <ul id="<%= user.id %>" class="task-list">
-    <% if user.assigned_tasks.empty? %>
-      <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
-    <% end %>
-    <% user.assigned_tasks.each do |task| %>
-      <li id="task_<%= task.id %>" class="task">
-        <span class="handle">::</span>
-        <span class="task-description"><%= task.description %></span>
-        <span class="task-functions"><%= link_to "x", task, :method => :delete,
-                                    :confirm => "Really?",
-                                    :title => "Delete task" %> |
-        <%= link_to "e", edit_task_path(task) %></span>
-      </li>
-    <% end %>
-    </ul>
+<section id="main">
+  <% if signed_in? %>
+    <h2>Stuff We're Doing Now</h2>
+    <% @users.each do |user| %>
+    <section class="user-tasks <%= cycle("first", "last") %>">
+      <h3 id="<%= "#{user.last_name}-#{user.id.to_s}" %>"><%= link_to name(user), user_path(user) %></h3>
+      <ul id="<%= user.id %>" class="task-list">
+      <% if user.assigned_tasks.empty? %>
+        <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
+      <% end %>
+      <% user.assigned_tasks.each do |task| %>
+        <li id="task_<%= task.id %>" class="task">
+          <span class="handle">::</span>
+          <span class="task-description"><%= task.description %></span>
+          <span class="task-functions"><%= link_to "x", task, :method => :delete,
+                                      :confirm => "Really?",
+                                      :title => "Delete task" %> |
+          <%= link_to "e", edit_task_path(task) %></span>
+        </li>
+      <% end %>
+      </ul>
 
-    <div class="add-task std-button">
-      <%= link_to '+ Add Task', new_task_path(:assigned_to => user.id) %>
-    </div>
-    </section>
+      <div class="submit-action std-button">
+        <%= link_to '+ Add Task', new_task_path(:assigned_to => user.id) %>
+      </div>
+      </section>
+    <% end %>
+  <% else %>
+    <h2>Jaguar Tasks Home Page.</h2>
+    <%= link_to "Sign up now!", signup_path, :class => "std-btn" %>
   <% end %>
-<% else %>
-  <p>Jaguar Tasks Home Page.</p>
-  <%= link_to "Sign up now!", signup_path, :class => "std-btn" %>
-<% end %>
+</section>
 
 <% content_for :javascript do %>
 <%= javascript_tag do %>

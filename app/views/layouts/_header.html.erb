@@ -3,7 +3,7 @@
       <nav>
         <ul>
           <% if signed_in? %>
-          <li><%= link_to "Profile", current_user %></li>
+          <li><%= link_to "My Tasks", current_user %></li>
           <li><%= link_to "Settings", edit_user_path(current_user) %></li>
           <li><%= link_to "Users", users_path %></li>
           <% end %>

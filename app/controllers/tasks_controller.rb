@@ -4,19 +4,20 @@ class TasksController < ApplicationController
   def create
     @task = current_user.created_tasks.new(params[:task])
     if @task.save
-      position = Task.where(:assigned_to_id => @task.assigned_to_id).maximum('position')
-      if !position || position == ''
-        @task.position = 1
-      else
-        @task.position = position + 1
+      Task.transaction do
+        position = Task.where(:assigned_to_id => @task.assigned_to_id).maximum('position')
+        if !position || position == ''
+          @task.position = 1
+        else
+          @task.position = position + 1
+        end
+        @task.save
       end
-      @task.save
       flash[:success] = "Task created."
-      redirect_to root_path
     else
       flash[:error] = "Problem creating that task.  Try again later?."
-      render 'pages/home'
     end
+    redirect_to root_path + user_anchor(User.find(@task.assigned_to_id))
   end
 
   def destroy
@@ -28,21 +29,41 @@ class TasksController < ApplicationController
   def edit
     @task = Task.find(params[:id])
     @title = "Edit Task"
-    @users = []
+    @user_names_ids = []
     User.all.each do |u|
-      @users << ["#{u.first_name} #{u.last_name}", u.id]
+      @user_names_ids << ["#{u.first_name} #{u.last_name}", u.id]
     end
   end
 
   def update
     @task = Task.find(params[:id])
+    old_assigned_to = params[:old_assigned_to_id]
+    p "*************"
+    p "old assigned to: " + "#{User.find(old_assigned_to).first_name}: #{old_assigned_to}"
+    p "*************"
+    p "new assigned to: " + "#{User.find(params[:task][:assigned_to_id]).first_name}: #{params[:task][:assigned_to_id]}"
+    p "*************"
+
+    if old_assigned_to != params[:task][:assigned_to_id]
+      p "taking it from: " + User.find(old_assigned_to).first_name
+      p "giving it to: " + User.find(params[:task][:assigned_to_id]).first_name
+      
+      Task.transaction do
+        position = Task.where(:assigned_to_id => params[:task][:assigned_to_id]).maximum('position')
+        if !position || position == ''
+          new_position = 1
+        else
+          new_position = position + 1
+        end
+        params[:task][:position] = new_position
+      end
+    end 
     if @task.update_attributes(params[:task])
       flash[:success] = "Task updated."
-      redirect_to root_path
     else 
       flash[:error] = "Error Updating Task."
-      redirect_to root_path
     end
+    redirect_to root_path + user_anchor(User.find(old_assigned_to))
   end
 
   def new

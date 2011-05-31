@@ -1,18 +1,56 @@
-<section id="main">
-<h1><%= "#{@user.first_name} #{@user.last_name} - #{@user.email}" %></h1>
-<h2>Tasks</h2>
-<% if @assigned_tasks.empty? %>
-<p>Sorry, no tasks yet!</p>
-<% end %>
-<ul>
-  <% @assigned_tasks.each do |task| %>
-  <li><%= task.description %></li>
-  <% end %>
-</ul>
-</section>
-<aside class="sidebar">
-  <span>Name:</span> <%= name(@user) %>
-  <span>URL:</span> <%= link_to user_path(@user) %>
-  <span>Tasks:</span> <%= @assigned_tasks.count %>
-</aside>
+<section id="main" class="profile">
+  <h2>
+    <%= "#{@user.first_name} #{@user.last_name} - " %>
+    <%= link_to @user.email, "mailto:" + @user.email %>
+  </h2>
 
+  <section class="user-tasks-long">
+    <h3>On <%= "#{@user.first_name}'s" %> plate.</h3>
+    <ul id="<%= @user.id %>" class="task-list">
+    <% if @user.assigned_tasks.empty? %>
+      <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
+    <% end %>
+    <% @user.assigned_tasks.each do |task| %>
+      <li id="task_<%= task.id %>" class="task">
+        <span class="handle">::</span>
+        <span class="task-description-long"><%= task.description %></span>
+        <span class="task-functions"><%= link_to "x", task, :method => :delete,
+                                    :confirm => "Really?",
+                                    :title => "Delete task" %> |
+        <%= link_to "e", edit_task_path(task) %></span>
+      </li>
+    <% end %>
+    </ul>
+
+    <div class="submit-action std-button">
+      <%= link_to '+ Add Task', new_task_path(:assigned_to => @user.id) %>
+    </div>
+    </section>
+
+</section>
+
+
+<% content_for :javascript do %>
+<%= javascript_tag do %>
+  $(function() {
+    $(".task-list").sortable({
+      handle: '.handle',
+      items: 'li',
+      cursor: 'move',
+      opacity: 0.4,
+      update: function(event, ui) {
+        $.ajax({
+          type: 'POST',
+          data: $(event.target).sortable('serialize') + "&user=" +
+                $(event.target).attr('id'),
+          dataType: 'script',
+          success: function(request) {
+            // Highlight dropped task?
+          },
+          url: '/users/reorder_tasks'
+        })
+      }
+    });
+  });
+<% end %>
+<% end %>
