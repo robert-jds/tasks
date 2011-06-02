@@ -1,5 +1,5 @@
 <section id="main" class="new-task">
-  <h1>Giv <%= name(@assigned_to) %> Something To Do</h1>
+  <h1>Give <%= name(@assigned_to) %> Something To Do</h1>
   <%= form_for @task, :html => { :class => "std-form" } do |f| %>
     <%= render 'shared/error_messages', :object => f.object %>
     <%= f.hidden_field :assigned_to_id, :value => @assigned_to.id %>
