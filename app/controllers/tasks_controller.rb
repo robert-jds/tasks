@@ -4,15 +4,8 @@ class TasksController < ApplicationController
   def create
     @task = current_user.created_tasks.new(params[:task])
     if @task.save
-      Task.transaction do
-        position = Task.where(:assigned_to_id => @task.assigned_to_id).maximum('position')
-        if !position || position == ''
-          @task.position = 1
-        else
-          @task.position = position + 1
-        end
-        @task.save
-      end
+      @task.position = max_position(Task.where(:assigned_to_id => @task.assigned_to_id))
+      @task.save
       flash[:success] = "Task created."
     else
       flash[:error] = "Problem creating that task.  Try again later?."
@@ -47,16 +40,8 @@ class TasksController < ApplicationController
     if old_assigned_to != params[:task][:assigned_to_id]
       p "taking it from: " + User.find(old_assigned_to).first_name
       p "giving it to: " + User.find(params[:task][:assigned_to_id]).first_name
-      
-      Task.transaction do
-        position = Task.where(:assigned_to_id => params[:task][:assigned_to_id]).maximum('position')
-        if !position || position == ''
-          new_position = 1
-        else
-          new_position = position + 1
-        end
-        params[:task][:position] = new_position
-      end
+       
+      params[:task][:position] = max_position(Task.where(:assigned_to_id => params[:task][:assigned_to_id]))
     end 
     if @task.update_attributes(params[:task])
       flash[:success] = "Task updated."
