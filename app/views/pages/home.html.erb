@@ -11,7 +11,7 @@
       <% user.assigned_tasks.each do |task| %>
         <li id="task_<%= task.id %>" class="task">
           <span class="handle">::</span>
-          <span class="task-description"><%= task.description %></span>
+          <span class="task-description edit" id="<%= task.id %>"><%= task.description %></span>
           <span class="task-functions"><%= link_to "x", task, :method => :delete,
                                       :confirm => "Really?",
                                       :title => "Delete task" %> |
@@ -32,6 +32,7 @@
 </section>
 
 <% content_for :javascript do %>
+<%= javascript_include_tag "jquery.jeditable" %>
 <%= javascript_tag do %>
   $(function() {
     $(".task-list").sortable({
@@ -52,6 +53,19 @@
         })
       }
     });
+
+    $('.edit').editable('/tasks/remote_edit_tasks', {
+      id: "task_id",
+      name: "task_description",
+      callback: function(value, settings) {
+         /*
+         alert(this);
+         alert(value);
+         alert(settings);
+         */
+      }
+    });
+
   });
 <% end %>
 <% end %>
