@@ -65,23 +65,6 @@
       </section>
     <% end %>
 
-
-
-    <section class="user-tasks-medium first">
-      <h3 id="<%= "#{@random_user.last_name}-#{@random_user.id.to_s}" %>"><%= link_to name(@random_user), user_path(@random_user) %></h3>
-      <ul id="<%= @random_user.id %>" class="task-list">
-      <% if @random_user.assigned_tasks.empty? %>
-        <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
-      <% end %>
-      <% @random_user.assigned_tasks.each do |task| %>
-        <li id="task_<%= task.id %>" class="task">
-          <span class="task-description-medium" id="<%= task.id %>"><%= task.description %></span>
-        </li>
-      <% end %>
-      </ul>
-
-      </section>
-
   </section>
 <% end %>
 
