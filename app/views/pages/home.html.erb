@@ -11,7 +11,7 @@
       <% user.assigned_tasks.each do |task| %>
         <li id="task_<%= task.id %>" class="task">
           <span class="handle">::</span>
-          <span class="task-description edit" id="<%= task.id %>"><%= task.description %></span>
+          <span class="task-description edit_area" id="<%= task.id %>"><%= task.description %></span>
           <span class="task-functions"><%= link_to "x", task, :method => :delete,
                                       :confirm => "Really?",
                                       :title => "Delete task" %> |
@@ -54,9 +54,13 @@
       }
     });
 
-    $('.edit').editable('/tasks/remote_edit_tasks', {
+    $('.edit_area').editable('/tasks/remote_edit_tasks', {
+      type: 'textarea',
+      cssclass: 'inline-edit',
       id: "task_id",
       name: "task_description",
+      submit: 'edit',
+      cancel: 'cancel',
       callback: function(value, settings) {
          /*
          alert(this);

@@ -201,7 +201,7 @@ li {
 
 .edit-user, .users, .signup, .profile, .edit-task, .new-task {
   width: 880px;
-  padding-left: 80px;
+  /*padding-left: 80px;*/
 }
 
 .col-2 #main {
@@ -226,6 +226,11 @@ li {
 
 .user-tasks-long {
   width: 760px;
+}
+
+.user-tasks h3 a {
+  font-weight: normal;
+  text-decoration: none;
 }
 
 .last {
@@ -390,5 +395,9 @@ li {
 
 .task-list a:link, .task-list a:hover, .task-list a:visited {
   color: #fff;
+}
+
+.task .inline-edit textarea {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
