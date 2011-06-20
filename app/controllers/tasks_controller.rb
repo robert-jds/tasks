@@ -8,7 +8,20 @@ class TasksController < ApplicationController
       @task.save
       flash[:success] = "Task created."
     else
-      flash[:error] = "Problem creating that task.  Try again later?."
+
+      # TODO: Use Active Record error messages
+      if @task.description.empty?
+        flash[:error] = "Sorry, the task description can't be empty."
+      else
+        flash[:error] = "Problem creating that task.  Try again later?."
+      p '**************'
+      p 'task error'
+      p @task
+      p '**************'
+      end
+
+      redirect_to new_task_path(
+        :assigned_to => params[:task][:assigned_to_id]) and return
     end
     redirect_to root_path + user_anchor(User.find(@task.assigned_to_id))
   end
@@ -67,7 +80,7 @@ class TasksController < ApplicationController
     p '**************'
     task = Task.find(params[:task_id])
     task.description = params[:task_description]
-    
+
     if task.save
       # flash[:success] = "Task created."
       p '**************'

@@ -1,5 +1,5 @@
-<section id="main">
-  <% if signed_in? %>
+<% if signed_in? %>
+  <section id="main">
     <h2>Stuff We're Doing Now</h2>
     <% @users.each do |user| %>
     <section class="user-tasks <%= cycle("first", "last") %>">
@@ -25,11 +25,69 @@
       </div>
       </section>
     <% end %>
-  <% else %>
-    <h2>Jaguar Tasks Home Page.</h2>
-    <%= link_to "Sign up now!", signup_path, :class => "std-btn" %>
-  <% end %>
-</section>
+  </section>
+<% else %>
+  <section id="main">
+    <h2>Welcome to the Fun.</h2>
+    <div class="blurb">
+      <p>
+        Jowl pork chop andouille shankle boudin drumstick pork, biltong meatloaf
+        chicken brisket. Pork shankle shoulder, spare ribs hamburger meatloaf
+        ribeye venison pastrami pancetta tail short ribs boudin jerky meatball.
+      </p>
+      <p>
+        If you don't have an account yet, please
+        <%= link_to "sign in", signin_path %>, otherwise, you'll need to 
+        <%= link_to "create an account", signup_path %> to start using the Task
+        List.  Until then, you can check out what everyone's up to below.
+        Have fun!
+      </p>
+      <p>
+        Love,<br />
+        The Management
+      </p>
+    </div>
+
+    <% @users.each do |user| %>
+    <section class="user-tasks <%= cycle("first", "last") %>">
+      <h3 id="<%= "#{user.last_name}-#{user.id.to_s}" %>"><%= link_to name(user), user_path(user) %></h3>
+      <ul id="<%= user.id %>" class="task-list">
+      <% if user.assigned_tasks.empty? %>
+        <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
+      <% end %>
+      <% user.assigned_tasks.each do |task| %>
+        <li id="task_<%= task.id %>" class="task">
+          <span class="task-description-solo edit_area" id="<%= task.id %>"><%= task.description %></span>
+        </li>
+      <% end %>
+      </ul>
+
+      </section>
+    <% end %>
+
+
+
+    <section class="user-tasks-medium first">
+      <h3 id="<%= "#{@random_user.last_name}-#{@random_user.id.to_s}" %>"><%= link_to name(@random_user), user_path(@random_user) %></h3>
+      <ul id="<%= @random_user.id %>" class="task-list">
+      <% if @random_user.assigned_tasks.empty? %>
+        <li class="no-tasks">Hmmmmm...nothing to do.  Check out <%= link_to 'Wikipedia?', 'http://en.wikipedia.org' %></li>
+      <% end %>
+      <% @random_user.assigned_tasks.each do |task| %>
+        <li id="task_<%= task.id %>" class="task">
+          <span class="task-description-medium" id="<%= task.id %>"><%= task.description %></span>
+        </li>
+      <% end %>
+      </ul>
+
+      </section>
+
+  </section>
+<% end %>
+
+<% content_for :body_class do %>
+ <%= 'class=home' %>
+<% end %>
 
 <% content_for :javascript do %>
 <%= javascript_include_tag "jquery.jeditable" %>

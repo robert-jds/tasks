@@ -3,6 +3,8 @@ class PagesController < ApplicationController
     @title = "Home"
     @users = User.all
     @task = Task.new
+
+    @random_user = User.find(rand(User.count) + 1)
   end
 
   def about 
