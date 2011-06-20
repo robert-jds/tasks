@@ -88,12 +88,14 @@ h5 {
 }
 
 a, a:visited {
+  border-bottom: 1px dashed #000;
   color: #666;
   font-weight: bold;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:hover {
+  border-bottom: none;
   text-decoration: none;
 }
 
@@ -116,6 +118,7 @@ header .logo {
 
 header .logo a,
 header .logo a:visited {
+  border-bottom: none;
   color: #000;
   text-decoration: none;
 }
@@ -133,6 +136,7 @@ header nav li {
 
 header nav li a,
 header nav li a:visited {
+  border-bottom: none;
   color: #000;
   text-decoration: none;
 }
@@ -228,7 +232,8 @@ li {
   width: 760px;
 }
 
-.user-tasks h3 a {
+.user-tasks h3 a:link, .user-tasks h3 a:visited {
+  border-bottom: 1px dashed #000;
   font-weight: normal;
   text-decoration: none;
 }
@@ -320,8 +325,9 @@ li {
   text-align: right;
 }
 
-.task-functions a,
-.task-functions a:visited {
+.task-list .task-functions a:link,
+.task-list .task-functions a:visited {
+  border-bottom: none;
   color: #fff;
   text-decoration: none;
 }
@@ -339,6 +345,7 @@ li {
 
 .std-button a,
 .std-button a:visited {
+  border-bottom: none;
   color: #000;
   text-decoration: none;
 }
@@ -394,6 +401,7 @@ li {
 }
 
 .task-list a:link, .task-list a:hover, .task-list a:visited {
+  border-bottom: 1px dashed #fff;
   color: #fff;
 }
 
