@@ -57,7 +57,7 @@
       <% end %>
       <% user.assigned_tasks.each do |task| %>
         <li id="task_<%= task.id %>" class="task">
-          <span class="task-description-solo edit_area" id="<%= task.id %>"><%= task.description %></span>
+          <span class="task-description-solo" id="<%= task.id %>"><%= task.description %></span>
         </li>
       <% end %>
       </ul>
