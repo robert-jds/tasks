@@ -6,6 +6,9 @@ Tasks::Application.routes.draw do
   resources :users do
     match :reorder_tasks, :via => [:post], :on => :collection
   end
+  resources :tasks do
+    match :remote_edit_tasks, :via => [:post], :on => :collection
+  end
 
   match '/about', :to => 'pages#about'
   match '/signup', :to => 'users#new'

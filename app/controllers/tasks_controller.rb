@@ -60,4 +60,25 @@ class TasksController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def remote_edit_tasks
+    p '**************'
+    p params
+    p '**************'
+    task = Task.find(params[:task_id])
+    task.description = params[:task_description]
+    
+    if task.save
+      # flash[:success] = "Task created."
+      p '**************'
+      p 'task success'
+      p '**************'
+    else
+      # flash[:error] = "Problem creating that task.  Try again later?."
+      p '**************'
+      p 'task error'
+      p '**************'
+    end
+    render :inline => task.description
+  end
 end

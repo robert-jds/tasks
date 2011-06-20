@@ -388,3 +388,7 @@ li {
   display: inline;
 }
 
+.task-list a:link, .task-list a:hover, .task-list a:visited {
+  color: #fff;
+}
+
