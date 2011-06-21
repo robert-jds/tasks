@@ -1,10 +1,8 @@
 class PagesController < ApplicationController
   def home
     @title = "Home"
-    @users = User.all
+    @users = User.order("first_name ASC")
     @task = Task.new
-
-    @random_user = User.find(rand(User.count) + 1)
   end
 
   def about 

@@ -1,16 +1,17 @@
-<h1>Sign In</h1>
-<%= form_for(:session, :url => sessions_path) do |f| %>
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Sign in" %>
-  </div>
-<% end %>
-
-<p>New user? <%= link_to "Sign up now!", signup_path %></p>
+<section id="main">
+  <h2>Sign In</h2>
+  <p>New user? Please <%= link_to "create an account", signup_path %> to get started.</p>
+  <%= form_for(:session, :url => sessions_path, :html => { :class => "std-form" }) do |f| %>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email, :class => "text-input" %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, :class => "text-input" %>
+    </div>
+    <div class="submit-action">
+      <%= f.submit "Sign in", :class => "std-button" %>
+    </div>
+  <% end %>
+</section>

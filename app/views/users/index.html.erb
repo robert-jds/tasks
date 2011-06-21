@@ -3,7 +3,7 @@
   <ul>
   <% @users.each do |user| %>
   <li>
-    <%= link_to name(user), user_path(user) %><%= " - #{user.email}" %>
+    <%= link_to name(user), user_path(user) %>
     <% if current_user.admin? %>
       | <%= link_to "Delete", user, :method => :delete, :confirm => "You sure?",
                                     :title => "Delete #{name(user)}" %> 

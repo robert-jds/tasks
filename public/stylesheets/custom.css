@@ -153,6 +153,10 @@ header nav li a:visited {
   margin-bottom: 10px;
 }
 
+.content p {
+  margin-bottom: 10px;
+}
+
 #edit-task .content h2 {
   margin-bottom: 0px;
 }
@@ -399,8 +403,8 @@ li {
 
 .std-form {
   float: left;
-  margin: 10px 20px 10px 0px;
-  padding: 8px 0px;
+  margin: 8px 20px 10px 0px;
+  padding: 4px 0px;
   width: 470px;
 }
 

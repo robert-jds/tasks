@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.order("first_name ASC")
     @title = "All Users"
   end
 
