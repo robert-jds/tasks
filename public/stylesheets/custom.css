@@ -118,8 +118,10 @@ header .logo {
 
 header .logo a,
 header .logo a:visited {
+  background: url(/images/task-list-logo.png) no-repeat left;
   border-bottom: none;
   color: #000;
+  padding-left: 40px;
   text-decoration: none;
 }
 
