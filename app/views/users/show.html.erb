@@ -1,10 +1,20 @@
-<section id="main" class="profile">
+<div id="profile-header">
   <h2>
     <%= "#{@user.first_name} #{@user.last_name} - " %>
     <%= link_to @user.email, "mailto:" + @user.email %>
   </h2>
+  <div class="meta">
+    <p>
+      <span class="task-no"><%= @user.assigned_tasks.length %> Tasks</span>
+      <span class="more">8 pork </span>
+      <span class="more last">1 loin</span>
+    </p>
+  </div>
+</div>
 
-  <section class="user-tasks-long">
+<section id="main" class="profile">
+
+  <section class="user-tasks">
     <h3>On <%= "#{@user.first_name}'s" %> plate.</h3>
     <ul id="<%= @user.id %>" class="task-list">
     <% if @user.assigned_tasks.empty? %>
@@ -13,11 +23,13 @@
     <% @user.assigned_tasks.each do |task| %>
       <li id="task_<%= task.id %>" class="task">
         <span class="handle">::</span>
-        <span class="task-description-long edit_area" id="<%= task.id %>"><%= task.description %></span>
-        <span class="task-functions"><%= link_to "x", task, :method => :delete,
-                                    :confirm => "Really?",
-                                    :title => "Delete task" %> |
-        <%= link_to "e", edit_task_path(task) %></span>
+        <span class="task-description edit_area" id="<%= task.id %>"><%= task.description %></span>
+        <span class="task-functions">
+          <%= link_to "e", edit_task_path(task), :title => "Edit task" %> |
+          <%= link_to "x", task, :method => :delete,
+                                 :confirm => "Really?",
+                                 :title => "Delete task" %>
+        </span>
       </li>
     <% end %>
     </ul>
@@ -29,6 +41,10 @@
 
 </section>
 
+
+<% content_for :body_class do %>
+  <%= "class=profile" %>
+<% end %>
 
 <% content_for :javascript do %>
 <%= javascript_include_tag "jquery.jeditable" %>

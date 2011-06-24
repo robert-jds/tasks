@@ -209,7 +209,7 @@ li {
   width: 940px;
 }
 
-.edit-user, .users, .signup, .profile, .edit-task, .new-task {
+.edit-user, .users, .signup, .edit-task, .new-task {
   width: 880px;
   /*padding-left: 80px;*/
 }
@@ -220,6 +220,25 @@ li {
 
 .col-2 #secondary {
   width: 220px;
+}
+
+#profile-header {
+  border-bottom: 2px solid #444;
+  float: left;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.profile h2 {
+  float: left;
+  width: 620px;
+}
+
+.profile .meta {
+  color: #888;
+  float: right;
+  width: 300px;
 }
 
 .user-tasks,
@@ -276,7 +295,8 @@ li {
 .user-tasks .task,
 .user-tasks-medium .task,
 .user-tasks-long .task {
-  background-color: #96BC33;
+  /* background-color: #96BC33; */
+  background-color: #557118;
   float: left;
   padding: 8px 0px;
   width: 100%;
@@ -388,6 +408,11 @@ li {
   width: 220px;
 }
 
+.notice {
+  background-color: #FDB92A;
+  color: #fff;
+}
+
 .error {
   background-color: #F33;
   color: #fff;
@@ -448,3 +473,15 @@ li {
 .blurb p {
   margin-bottom: 15px;
 }
+
+.task-no, .more {
+  font-size: 140%;
+  color: #aaa;
+  border-right: 2px solid #bbb;
+  padding: 8px;
+}
+
+.last {
+  border-right: none;
+}
+

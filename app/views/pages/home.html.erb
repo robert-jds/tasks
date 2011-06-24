@@ -12,10 +12,12 @@
         <li id="task_<%= task.id %>" class="task">
           <span class="handle">::</span>
           <span class="task-description edit_area" id="<%= task.id %>"><%= task.description %></span>
-          <span class="task-functions"><%= link_to "x", task, :method => :delete,
-                                      :confirm => "Really?",
-                                      :title => "Delete task" %> |
-          <%= link_to "e", edit_task_path(task) %></span>
+          <span class="task-functions">
+            <%= link_to "e", edit_task_path(task), :title => "Edit task"  %> |
+            <%= link_to "x", task, :method => :delete,
+                                   :confirm => "Really?",
+                                   :title => "Delete task" %>
+          </span>
         </li>
       <% end %>
       </ul>
