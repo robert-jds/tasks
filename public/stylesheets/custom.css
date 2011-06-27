@@ -335,6 +335,7 @@ li {
   float: left;
   width: 10px;
   padding: 0px 8px;
+  cursor: move;
 }
 
 .task {
